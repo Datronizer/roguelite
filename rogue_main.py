@@ -32,6 +32,17 @@ class Enemy(Entity):
             if insight > 7:
                 print("{} currently has {} HP and {} MP\n".format(self.name, self.health, self.mana))
 
+class Event:
+    def __init__(self, list_of_entities_involved):
+        self.list_of_entities_involved = list_of_entities_involved # Must include 1 player
+    def participants(self):
+        for entity in self.list_of_entities_involved:
+            print(type(entity))
+    def initcombat(self):
+        """Starts combat and analyzes the attack order"""
+        attackorder = sorted(self.list_of_entities_involved, key = lambda participant: participant.agility, reverse = True)
+        return attackorder
+
 # Player1 = Player('Erith', 80, 8, 11, 11)
 # Player1.statcheck()
 
@@ -47,3 +58,7 @@ Player2.statcheck()
 Enemy1 = Enemy('Big Rat', 10, 1, 3, 0)
 # Enemy1.analyze(Player1.insight)
 Enemy1.analyze(Player2.insight)
+
+Encounter = Event([Player2, Enemy1])
+# Encounter.participants()
+print(Encounter.initcombat())
