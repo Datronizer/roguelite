@@ -38,10 +38,26 @@ class Event:
     def participants(self):
         for entity in self.list_of_entities_involved:
             print(type(entity))
+
+class Combat(Event):
     def initcombat(self):
         """Starts combat and analyzes the attack order"""
         attackorder = sorted(self.list_of_entities_involved, key = lambda participant: participant.agility, reverse = True)
         return attackorder
+    def combatloop(self):
+        incombat = True
+        combattext = ", ".join(str(self.list_of_entities_involved)) + " are locked in combat!"
+        while incombat:
+            for entity in self.list_of_entities_involved:
+                if type(entity) == "Player":
+                    response = input("Player move: ")
+                    if response == "attack":
+                        print("Combat over!")
+                        incombat = False
+                else:
+                    print("Enemy move: ")
+                    print("Combat over!")
+                    incombat = False
 
 # Player1 = Player('Erith', 80, 8, 11, 11)
 # Player1.statcheck()
@@ -57,8 +73,9 @@ Player2.statcheck()
 
 Enemy1 = Enemy('Big Rat', 10, 1, 3, 0)
 # Enemy1.analyze(Player1.insight)
-Enemy1.analyze(Player2.insight)
+# Enemy1.analyze(Player2.insight)
 
-Encounter = Event([Player2, Enemy1])
+Encounter = Combat([Player2, Enemy1])
 # Encounter.participants()
 print(Encounter.initcombat())
+Encounter.combatloop()
