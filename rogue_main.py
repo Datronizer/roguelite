@@ -47,6 +47,7 @@ class Combat(Event):
     def combatloop(self):
         incombat = True
         combattext = ", ".join(str(self.list_of_entities_involved)) + " are locked in combat!"
+        print(combattext)
         while incombat:
             for entity in self.list_of_entities_involved:
                 if type(entity) == "Player":
@@ -63,7 +64,7 @@ class Combat(Event):
 # Player1.statcheck()
 
 Player2 = Player('Yobungus', 150, 16, 10, 4)
-Player2.statcheck()
+# Player2.statcheck()
 
 # Entity1 = Entity('Dingus', 100, 10, 7, 4)
 # Entity1.analyze(Player1.insight)
